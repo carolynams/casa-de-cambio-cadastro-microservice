@@ -22,7 +22,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(service.save(clienteDTO));
     }
 
-    @GetMapping("{cpf}")
+    @GetMapping("/{cpf}")
     public ResponseEntity<List<Cliente>> findByCpf(@PathVariable String cpf) {
         return ResponseEntity.ok().body(service.findByCpf(cpf));
     }

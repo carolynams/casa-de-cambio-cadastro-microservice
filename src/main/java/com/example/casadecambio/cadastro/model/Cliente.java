@@ -26,12 +26,13 @@ public class Cliente {
     private String nome;
 
     @NotNull
+    @JsonFormat
     private String cpf;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataDeNascimento;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "conta_id")
     private Conta conta;
 

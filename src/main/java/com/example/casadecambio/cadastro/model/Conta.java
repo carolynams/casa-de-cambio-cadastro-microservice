@@ -44,4 +44,8 @@ public class Conta {
         this.clientes = new ArrayList<>();
         this.dataDeCriacao = LocalDateTime.now();
     }
+
+    public Conta() {
+        this.dataDeCriacao = LocalDateTime.now();
+    }
 }
