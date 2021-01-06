@@ -46,5 +46,6 @@ public class Conta {
     }
 
     public Conta() {
+        this.dataDeCriacao = LocalDateTime.now();
     }
 }

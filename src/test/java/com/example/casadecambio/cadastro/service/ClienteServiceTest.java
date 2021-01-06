@@ -46,8 +46,7 @@ public class ClienteServiceTest {
         Cliente cliente = createCliente();
         when(clienteRepository.save(any(Cliente.class))).thenReturn(cliente);
 
-        ClienteDTO clienteDTO = new ClienteDTO().toDTO(cliente);
-        Cliente saveCLient = clienteService.save(clienteDTO);
+        Cliente saveCLient = clienteService.save(cliente);
         assertEquals(cliente.getCpf(), saveCLient.getCpf());
         assertEquals(cliente.getNome(), saveCLient.getNome());
         assertEquals(cliente.getConta(), saveCLient.getConta());
@@ -57,11 +56,10 @@ public class ClienteServiceTest {
     public void shouldNotSaveClientWithTheSameCPf() {
         Cliente cliente = createCliente();
 
-        when(clienteRepository.findByCpf(anyString())).thenReturn(List.of(cliente));
+        when(clienteRepository.findByCpf(anyString())).thenReturn(cliente);
 
-        ClienteDTO clienteDTO = new ClienteDTO().toDTO(cliente);
         DataIntegrityViolationException exception = assertThrows(DataIntegrityViolationException.class,
-                () -> clienteService.save(clienteDTO));
+                () -> clienteService.save(cliente));
         assertEquals(exception.getMessage(), CPF_JA_CADASTRADO);
     }
 

@@ -7,10 +7,6 @@ import java.util.Set;
 
 public interface ContaRepository {
 
-    Conta findById(Long id);
-
-    List<Conta> findAll();
-
     Set<Conta> findByContaOrderByClientesNomeAsc(Long conta);
 
 }

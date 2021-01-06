@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.Objects.nonNull;
+
 @Service
 public class ClienteService {
 
@@ -22,8 +24,7 @@ public class ClienteService {
     @Autowired
     private ContaRepository contaRepository;
 
-    public Cliente save(ClienteDTO clienteDTO) {
-        Cliente cliente = new Cliente().fromDTO(clienteDTO);
+    public Cliente save(Cliente cliente) {
         String cpf = cliente.getCpf();
         validateCpf(cpf);
         checkIfAlreadyExists(cliente);
@@ -31,15 +32,21 @@ public class ClienteService {
     }
 
     private void checkIfAlreadyExists(Cliente cliente) {
-        List<Cliente> cpfFound = clienteRepository.findByCpf(cliente.getCpf());
-        if (cpfFound.size() >= 1) {
-            throw new DataIntegrityViolationException(DataIntegrityViolationException.CPF_JA_CADASTRADO);
+        Cliente clienteFromDB = clienteRepository.findByCpf(cliente.getCpf());
+        if (nonNull(clienteFromDB)) {
+            isSameEntity(clienteFromDB, cliente.getCpf());
         }
 
         Conta conta = cliente.getConta();
         Set<Conta> foundConta = contaRepository.findByContaOrderByClientesNomeAsc(conta.getConta());
         if (foundConta.size() >= 1) {
             throw new DataIntegrityViolationException(DataIntegrityViolationException.CONTA_CADASTRADA);
+        }
+    }
+
+    private void isSameEntity(Cliente cliente, String cpf) {
+        if(!cliente.getCpf().equals(cpf)){
+            throw new DataIntegrityViolationException(DataIntegrityViolationException.CPF_JA_CADASTRADO);
         }
     }
 
@@ -52,7 +59,14 @@ public class ClienteService {
         }
     }
 
-    public List<Cliente> findByCpf(String cpf) {
+    public Cliente findByCpf(String cpf) {
         return clienteRepository.findByCpf(cpf);
+    }
+
+    public Cliente update(Cliente cliente, Long id){
+        Cliente found = clienteRepository.findById(id);
+        found.update(cliente);
+        validateCpf(cliente.getCpf());
+        return clienteRepository.update(found);
     }
 }

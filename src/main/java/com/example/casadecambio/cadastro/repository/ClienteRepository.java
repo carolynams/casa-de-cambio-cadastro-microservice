@@ -9,9 +9,10 @@ public interface ClienteRepository {
 
     Cliente save(Cliente cliente);
 
+    Cliente findByCpf(String cpf);
+
     Cliente findById(Long id);
 
-    List<Cliente> findAll();
+    Cliente update(Cliente cliente);
 
-    List<Cliente> findByCpf(String cpf);
 }

@@ -3,9 +3,12 @@ package com.example.casadecambio.cadastro.model;
 import com.example.casadecambio.cadastro.model.dto.ClienteDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import java.time.LocalDateTime;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
@@ -42,4 +45,10 @@ public class Cliente {
         copyProperties(clienteDTO, this);
         return this;
     }
+
+    public Cliente update(Cliente cliente) {
+        BeanUtils.copyProperties(cliente, this, "id");
+        return this;
+    }
+
 }

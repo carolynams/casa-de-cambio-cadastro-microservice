@@ -5,6 +5,8 @@ import com.example.casadecambio.cadastro.model.Conta;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
@@ -15,6 +17,8 @@ public class ClienteDTO {
 
     private String nome;
     private String cpf;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private Conta conta;
 
     public ClienteDTO toDTO(Cliente cliente) {
