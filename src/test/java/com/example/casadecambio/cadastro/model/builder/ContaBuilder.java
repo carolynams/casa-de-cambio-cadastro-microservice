@@ -1,4 +1,4 @@
-package com.example.casadecambio.cadastro.builder;
+package com.example.casadecambio.cadastro.model.builder;
 
 import com.example.casadecambio.cadastro.model.Conta;
 

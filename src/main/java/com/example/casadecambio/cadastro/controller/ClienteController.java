@@ -29,8 +29,8 @@ public class ClienteController {
         return ResponseEntity.ok().body(service.findByCpf(cpf));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Cliente> update(@RequestBody Cliente cliente, @RequestParam Long id) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Cliente> update(@RequestBody Cliente cliente, @PathVariable Long id) {
         return ResponseEntity.ok().body(service.update(cliente, id));
     }
 }

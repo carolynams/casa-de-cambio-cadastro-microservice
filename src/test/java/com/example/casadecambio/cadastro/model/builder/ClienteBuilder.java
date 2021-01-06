@@ -1,12 +1,9 @@
-package com.example.casadecambio.cadastro.builder;
+package com.example.casadecambio.cadastro.model.builder;
 
 import com.example.casadecambio.cadastro.model.Cliente;
 import com.example.casadecambio.cadastro.model.Conta;
 
-import java.time.LocalDate;
-
 public class ClienteBuilder {
-
     private String nome;
     private String cpf;
     private Conta conta;

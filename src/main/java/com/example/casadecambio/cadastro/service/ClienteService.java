@@ -4,13 +4,11 @@ import br.com.caelum.stella.validation.CPFValidator;
 import com.example.casadecambio.cadastro.exceptions.DataIntegrityViolationException;
 import com.example.casadecambio.cadastro.model.Cliente;
 import com.example.casadecambio.cadastro.model.Conta;
-import com.example.casadecambio.cadastro.model.dto.ClienteDTO;
 import com.example.casadecambio.cadastro.repository.ClienteRepository;
 import com.example.casadecambio.cadastro.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 import static java.util.Objects.nonNull;
@@ -19,7 +17,7 @@ import static java.util.Objects.nonNull;
 public class ClienteService {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteRepository repository;
 
     @Autowired
     private ContaRepository contaRepository;
@@ -28,11 +26,11 @@ public class ClienteService {
         String cpf = cliente.getCpf();
         validateCpf(cpf);
         checkIfAlreadyExists(cliente);
-        return clienteRepository.save(cliente);
+        return repository.save(cliente);
     }
 
     private void checkIfAlreadyExists(Cliente cliente) {
-        Cliente clienteFromDB = clienteRepository.findByCpf(cliente.getCpf());
+        Cliente clienteFromDB = repository.findByCpf(cliente.getCpf());
         if (nonNull(clienteFromDB)) {
             isSameEntity(clienteFromDB, cliente.getCpf());
         }
@@ -45,7 +43,7 @@ public class ClienteService {
     }
 
     private void isSameEntity(Cliente cliente, String cpf) {
-        if(!cliente.getCpf().equals(cpf)){
+        if (!cliente.getCpf().equals(cpf)) {
             throw new DataIntegrityViolationException(DataIntegrityViolationException.CPF_JA_CADASTRADO);
         }
     }
@@ -60,13 +58,14 @@ public class ClienteService {
     }
 
     public Cliente findByCpf(String cpf) {
-        return clienteRepository.findByCpf(cpf);
+        return repository.findByCpf(cpf);
     }
 
-    public Cliente update(Cliente cliente, Long id){
-        Cliente found = clienteRepository.findById(id);
-        found.update(cliente);
+    public Cliente update(Cliente cliente, Long id) {
+        Cliente found = repository.findById(id);
+        Conta foundConta = contaRepository.findById(found.getConta().getId());
+        foundConta.update(cliente.getConta());
         validateCpf(cliente.getCpf());
-        return clienteRepository.update(found);
+        return repository.update(found);
     }
 }

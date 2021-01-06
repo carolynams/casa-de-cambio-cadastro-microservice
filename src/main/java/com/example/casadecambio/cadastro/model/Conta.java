@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -47,5 +48,10 @@ public class Conta {
 
     public Conta() {
         this.dataDeCriacao = LocalDateTime.now();
+    }
+
+    public Conta update(Conta conta) {
+        BeanUtils.copyProperties(conta, this, "id");
+        return this;
     }
 }

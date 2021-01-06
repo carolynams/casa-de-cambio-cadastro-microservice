@@ -41,11 +41,6 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente fromDTO(ClienteDTO clienteDTO) {
-        copyProperties(clienteDTO, this);
-        return this;
-    }
-
     public Cliente update(Cliente cliente) {
         BeanUtils.copyProperties(cliente, this, "id");
         return this;

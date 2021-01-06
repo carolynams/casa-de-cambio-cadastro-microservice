@@ -9,4 +9,5 @@ public interface ContaRepository {
 
     Set<Conta> findByContaOrderByClientesNomeAsc(Long conta);
 
+    Conta findById(Long id);
 }

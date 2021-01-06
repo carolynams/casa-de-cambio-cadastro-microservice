@@ -1,11 +1,10 @@
 package com.example.casadecambio.cadastro.service;
 
-import com.example.casadecambio.cadastro.builder.ClienteBuilder;
-import com.example.casadecambio.cadastro.builder.ContaBuilder;
 import com.example.casadecambio.cadastro.exceptions.DataIntegrityViolationException;
 import com.example.casadecambio.cadastro.model.Cliente;
 import com.example.casadecambio.cadastro.model.Conta;
-import com.example.casadecambio.cadastro.model.dto.ClienteDTO;
+import com.example.casadecambio.cadastro.model.builder.ClienteBuilder;
+import com.example.casadecambio.cadastro.model.builder.ContaBuilder;
 import com.example.casadecambio.cadastro.repository.ClienteRepository;
 import com.example.casadecambio.cadastro.repository.ContaRepository;
 import org.junit.Before;
