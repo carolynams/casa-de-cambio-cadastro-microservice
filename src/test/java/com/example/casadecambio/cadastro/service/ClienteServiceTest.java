@@ -50,7 +50,6 @@ public class ClienteServiceTest {
         Cliente saveCLient = clienteService.save(clienteDTO);
         assertEquals(cliente.getCpf(), saveCLient.getCpf());
         assertEquals(cliente.getNome(), saveCLient.getNome());
-        assertEquals(cliente.getDataDeNascimento(), saveCLient.getDataDeNascimento());
         assertEquals(cliente.getConta(), saveCLient.getConta());
     }
 
@@ -76,7 +75,6 @@ public class ClienteServiceTest {
         return new ClienteBuilder()
                 .setNome("Carolyna Mantovani de Souza")
                 .setCpf("102.663.619-19")
-                .setDataDeNascimento(of(1995, 11, 29))
                 .setConta(conta)
                 .createCliente();
     }

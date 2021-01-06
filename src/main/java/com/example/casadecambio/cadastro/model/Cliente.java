@@ -1,15 +1,12 @@
 package com.example.casadecambio.cadastro.model;
 
 import com.example.casadecambio.cadastro.model.dto.ClienteDTO;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
-import static javax.persistence.FetchType.LAZY;
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Data
@@ -28,17 +25,13 @@ public class Cliente {
     @NotNull
     private String cpf;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate dataDeNascimento;
-
-    @ManyToOne(cascade = CascadeType.ALL, fetch = LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "conta_id")
     private Conta conta;
 
-    public Cliente(String nome, String cpf, LocalDate dataDeNascimento, Conta conta) {
+    public Cliente(String nome, String cpf, Conta conta) {
         this.nome = nome;
         this.cpf = cpf;
-        this.dataDeNascimento = dataDeNascimento;
         this.conta = conta;
     }
 

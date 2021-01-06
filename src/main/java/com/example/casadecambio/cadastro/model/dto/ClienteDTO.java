@@ -15,7 +15,6 @@ public class ClienteDTO {
 
     private String nome;
     private String cpf;
-    private LocalDate dataDeNascimento;
     private Conta conta;
 
     public ClienteDTO toDTO(Cliente cliente) {

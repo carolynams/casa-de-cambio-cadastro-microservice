@@ -33,7 +33,7 @@ public class Conta {
     private BigDecimal saldo;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "conta")
     private List<Cliente> clientes;
 
     public Conta(Long agencia, Long conta, String senha, BigDecimal saldo) {
@@ -43,5 +43,8 @@ public class Conta {
         this.saldo = saldo;
         this.clientes = new ArrayList<>();
         this.dataDeCriacao = LocalDateTime.now();
+    }
+
+    public Conta() {
     }
 }

@@ -9,7 +9,6 @@ public class ClienteBuilder {
 
     private String nome;
     private String cpf;
-    private LocalDate dataDeNascimento;
     private Conta conta;
 
     public ClienteBuilder setNome(String nome) {
@@ -22,17 +21,12 @@ public class ClienteBuilder {
         return this;
     }
 
-    public ClienteBuilder setDataDeNascimento(LocalDate dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
-        return this;
-    }
-
     public ClienteBuilder setConta(Conta conta) {
         this.conta = conta;
         return this;
     }
 
     public Cliente createCliente() {
-        return new Cliente(nome, cpf, dataDeNascimento, conta);
+        return new Cliente(nome, cpf, conta);
     }
 }
