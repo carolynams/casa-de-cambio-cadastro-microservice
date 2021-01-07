@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class Conta {
         this.agencia = agencia;
         this.conta = conta;
         this.senha = senha;
-        this.saldo = saldo;
+        this.saldo = saldo.setScale(3, RoundingMode.HALF_UP);
         this.clientes = new ArrayList<>();
         this.dataDeCriacao = LocalDateTime.now();
     }
