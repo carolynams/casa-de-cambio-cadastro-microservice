@@ -8,8 +8,6 @@ import org.springframework.beans.BeanUtils;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import java.time.LocalDateTime;
-
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Data
@@ -28,22 +26,11 @@ public class Cliente {
     @NotNull
     private String cpf;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "conta_id")
-    private Conta conta;
-
-    public Cliente(String nome, String cpf, Conta conta) {
+    public Cliente(String nome, String cpf) {
         this.nome = nome;
         this.cpf = cpf;
-        this.conta = conta;
     }
 
     public Cliente() {
     }
-
-    public Cliente update(Cliente cliente) {
-        BeanUtils.copyProperties(cliente, this, "id");
-        return this;
-    }
-
 }

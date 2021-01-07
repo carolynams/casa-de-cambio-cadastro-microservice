@@ -3,13 +3,9 @@ package com.example.casadecambio.cadastro.service;
 import br.com.caelum.stella.validation.CPFValidator;
 import com.example.casadecambio.cadastro.exceptions.DataIntegrityViolationException;
 import com.example.casadecambio.cadastro.model.Cliente;
-import com.example.casadecambio.cadastro.model.Conta;
 import com.example.casadecambio.cadastro.repository.ClienteRepository;
-import com.example.casadecambio.cadastro.repository.ContaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 import static java.util.Objects.nonNull;
 
@@ -18,9 +14,6 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repository;
-
-    @Autowired
-    private ContaRepository contaRepository;
 
     public Cliente save(Cliente cliente) {
         String cpf = cliente.getCpf();
@@ -33,12 +26,6 @@ public class ClienteService {
         Cliente clienteFromDB = repository.findByCpf(cliente.getCpf());
         if (nonNull(clienteFromDB)) {
             isSameEntity(clienteFromDB, cliente.getCpf());
-        }
-
-        Conta conta = cliente.getConta();
-        Set<Conta> foundConta = contaRepository.findByContaOrderByClientesNomeAsc(conta.getConta());
-        if (foundConta.size() >= 1) {
-            throw new DataIntegrityViolationException(DataIntegrityViolationException.CONTA_CADASTRADA);
         }
     }
 
@@ -63,8 +50,6 @@ public class ClienteService {
 
     public Cliente update(Cliente cliente, Long id) {
         Cliente found = repository.findById(id);
-        Conta foundConta = contaRepository.findById(found.getConta().getId());
-        foundConta.update(cliente.getConta());
         validateCpf(cliente.getCpf());
         return repository.update(found);
     }

@@ -2,17 +2,12 @@ package com.example.casadecambio.cadastro.service;
 
 import com.example.casadecambio.cadastro.exceptions.DataIntegrityViolationException;
 import com.example.casadecambio.cadastro.model.Cliente;
-import com.example.casadecambio.cadastro.model.Conta;
 import com.example.casadecambio.cadastro.model.builder.ClienteBuilder;
-import com.example.casadecambio.cadastro.model.builder.ContaBuilder;
 import com.example.casadecambio.cadastro.repository.ClienteRepository;
-import com.example.casadecambio.cadastro.repository.ContaRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-import java.util.List;
 
 import static com.example.casadecambio.cadastro.exceptions.DataIntegrityViolationException.CPF_JA_CADASTRADO;
 import static java.math.BigDecimal.valueOf;
@@ -32,9 +27,6 @@ public class ClienteServiceTest {
     @Mock
     private ClienteRepository clienteRepository;
 
-    @Mock
-    private ContaRepository contaRepository;
-
     @Before
     public void executeThis() {
         openMocks(this);
@@ -48,7 +40,6 @@ public class ClienteServiceTest {
         Cliente saveCLient = clienteService.save(cliente);
         assertEquals(cliente.getCpf(), saveCLient.getCpf());
         assertEquals(cliente.getNome(), saveCLient.getNome());
-        assertEquals(cliente.getConta(), saveCLient.getConta());
     }
 
     @Test
@@ -63,16 +54,9 @@ public class ClienteServiceTest {
     }
 
     private Cliente createCliente() {
-        Conta conta = new ContaBuilder()
-                .setConta(56478L)
-                .setSaldo(valueOf(25600.56))
-                .setSenha("senha1234")
-                .createConta();
-
         return new ClienteBuilder()
                 .setNome("Carolyna Mantovani de Souza")
                 .setCpf("102.663.619-19")
-                .setConta(conta)
                 .createCliente();
     }
 }
