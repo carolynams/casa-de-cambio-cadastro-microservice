@@ -32,7 +32,7 @@ public class ClienteService {
     }
 
     private void isSameEntity(Cliente cliente, String cpf) {
-        if (!cliente.getCpf().equals(cpf)) {
+        if (cliente.getCpf().equals(cpf)) {
             throw new DataIntegrityViolationException(CPF_JA_CADASTRADO);
         }
     }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
@@ -20,17 +22,17 @@ public class ClienteController {
     @PostMapping("/save")
     @ApiOperation("Salva o Cliente")
     public ResponseEntity<Cliente> save(@Valid @RequestBody Cliente cliente) {
-        return ResponseEntity.ok().body(service.save(cliente));
+        return ok().body(service.save(cliente));
     }
 
     @GetMapping("/{cpf}")
     @ApiOperation("Busca o cliente por CPF")
     public ResponseEntity<Cliente> findByCpf(@PathVariable String cpf) {
-        return ResponseEntity.ok().body(service.findByCpf(cpf));
+        return ok().body(service.findByCpf(cpf));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Cliente> update(@RequestBody Cliente cliente, @PathVariable Long id) {
-        return ResponseEntity.ok().body(service.update(cliente, id));
+        return ok().body(service.update(cliente, id));
     }
 }
