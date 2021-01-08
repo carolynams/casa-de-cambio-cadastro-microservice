@@ -23,7 +23,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(service.save(cliente));
     }
 
-    @GetMapping("{cpf}")
+    @GetMapping("/{cpf}")
     @ApiOperation("Busca o cliente por CPF")
     public ResponseEntity<Cliente> findByCpf(@PathVariable String cpf) {
         return ResponseEntity.ok().body(service.findByCpf(cpf));

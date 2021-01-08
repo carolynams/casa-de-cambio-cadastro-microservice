@@ -7,6 +7,8 @@ import com.example.casadecambio.cadastro.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.example.casadecambio.cadastro.exceptions.DataIntegrityViolationException.*;
+import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 @Service
@@ -31,7 +33,7 @@ public class ClienteService {
 
     private void isSameEntity(Cliente cliente, String cpf) {
         if (!cliente.getCpf().equals(cpf)) {
-            throw new DataIntegrityViolationException(DataIntegrityViolationException.CPF_JA_CADASTRADO);
+            throw new DataIntegrityViolationException(CPF_JA_CADASTRADO);
         }
     }
 
@@ -40,12 +42,16 @@ public class ClienteService {
         try {
             cpfValidator.assertValid(cpf);
         } catch (Exception e) {
-            throw new DataIntegrityViolationException(DataIntegrityViolationException.CPF_INVALIDO);
+            throw new DataIntegrityViolationException(CPF_INVALIDO);
         }
     }
 
     public Cliente findByCpf(String cpf) {
-        return repository.findByCpf(cpf);
+        Cliente found = repository.findByCpf(cpf);
+        if (isNull(found)) {
+            throw new DataIntegrityViolationException(CLIENTE_NAO_ECONTRADO);
+        }
+        return found;
     }
 
     public Cliente update(Cliente cliente, Long id) {
